@@ -9,7 +9,7 @@ object ConsoleView {
     private val listMenu = listOf(
         "add 'description'", "update 'id'", "delete 'id'", "mark-in-progress 'id'",
         "mark-in-done 'id'", "list", "list done", "list todo", "list in-progress", "exit"
-        )
+    )
     private val taskList = mutableListOf<Task>()
     private val taskController = TaskController(taskList)
 
@@ -40,24 +40,24 @@ object ConsoleView {
                         }
                     }
                     "update" -> {
-
+                        println("OK")
                     }
                     "delete" -> {
-
+                        println("OK")
                     }
                     "mark-in-progress" -> {
-
+                        println("OK")
                     }
                     "mark-in-done" -> {
-
+                        println("OK")
                     }
                     "list" -> {
-
+                        println("OK")
                     }
                     "exit" -> {
-
+                        println("OK")
                     }
-                    else -> println("Invalid options")
+                    else -> println("Invalid option")
                 }
             }
 
