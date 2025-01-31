@@ -1,3 +1,6 @@
+import views.ConsoleView
+
 fun main() {
-    println("Hello World!")
+    ConsoleView.showMenu()
+    ConsoleView.option("task-cli add Enzo Fernandes Sarmento")
 }
