@@ -2,7 +2,8 @@ package views
 
 import controllers.TaskController
 import exceptions.CommandException
-import models.Task
+import repositories.TaskRepository
+import services.TaskService
 
 object ConsoleView {
 
@@ -10,8 +11,8 @@ object ConsoleView {
         "add 'description'", "update 'id'", "delete 'id'", "mark-in-progress 'id'",
         "mark-in-done 'id'", "list", "list done", "list todo", "list in-progress", "exit"
     )
-    private val taskList = mutableListOf<Task>()
-    private val taskController = TaskController(taskList)
+
+    private val taskController = TaskController(TaskService(TaskRepository()))
 
     fun showMenu() {
         println("Task Tracker")
@@ -40,10 +41,18 @@ object ConsoleView {
                         }
                     }
                     "update" -> {
-                        println("OK")
+                        var description = ""
+                        if (commands.size > 3) {
+                            for (i in 3..<commands.size) {
+                                description += "${commands[i]} "
+                            }
+                            println(taskController.updateTask(commands[2].toInt(), description))
+                        } else {
+                            println("Task updated description is empty")
+                        }
                     }
                     "delete" -> {
-                        println("OK")
+                        println(taskController.removeTask(commands[commands.size - 1].toInt()))
                     }
                     "mark-in-progress" -> {
                         println("OK")
@@ -52,7 +61,7 @@ object ConsoleView {
                         println("OK")
                     }
                     "list" -> {
-                        println("OK")
+                        taskController.listAllTasks()
                     }
                     "exit" -> {
                         println("OK")
