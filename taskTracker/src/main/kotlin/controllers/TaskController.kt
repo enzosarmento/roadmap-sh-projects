@@ -1,5 +1,6 @@
 package controllers
 
+import models.Status
 import services.TaskService
 
 class TaskController(private val taskService: TaskService) {
@@ -20,6 +21,14 @@ class TaskController(private val taskService: TaskService) {
     fun removeTask(id: Int): String {
         return if (taskService.removeTask(id)) {
             "Task removed"
+        } else {
+            "Task not found"
+        }
+    }
+
+    fun taskStatus(id: Int, status: Status): String {
+        return if (taskService.taskStatus(id, status)) {
+            "Task status updated"
         } else {
             "Task not found"
         }

@@ -28,5 +28,9 @@ class TaskService(private val taskRepository: TaskRepository) {
         return taskRepository.deleteById(id)
     }
 
+    fun taskStatus(id: Int, status: Status): Boolean {
+        return taskRepository.updatedById(id, status)
+    }
+
     fun listAllTasks() = taskRepository.findAll()
 }
