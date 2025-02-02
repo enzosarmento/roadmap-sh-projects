@@ -26,10 +26,14 @@ class TaskController(private val taskService: TaskService) {
     }
 
     fun listAllTasks() {
-        taskService.listAllTasks().forEach {
-            val createdAtFormatted = "${it.createdAt.dayOfMonth}/${it.createdAt.month.value}/${it.createdAt.year}"
-            val updatedAtFormatted = "${it.updatedAt.dayOfMonth}/${it.updatedAt.month.value}/${it.updatedAt.year}"
-            println("${it.id} - ${it.description} - created at $createdAtFormatted- updated at $updatedAtFormatted - Status: ${it.status}")
+        if (taskService.listAllTasks().isNotEmpty()) {
+            taskService.listAllTasks().forEach {
+                val createdAtFormatted = "${it.createdAt.dayOfMonth}/${it.createdAt.month.value}/${it.createdAt.year}"
+                val updatedAtFormatted = "${it.updatedAt.dayOfMonth}/${it.updatedAt.month.value}/${it.updatedAt.year}"
+                println("${it.id} - ${it.description} - created at $createdAtFormatted- updated at $updatedAtFormatted - Status: ${it.status}")
+            }
+        } else {
+         println("Task List is empty")
         }
     }
 }

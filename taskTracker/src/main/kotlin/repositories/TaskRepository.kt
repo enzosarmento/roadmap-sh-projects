@@ -1,13 +1,22 @@
 package repositories
 
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import models.Task
+import java.io.File
 import java.time.LocalDate
 
-class TaskRepository {
-    private val tasks = mutableListOf<Task>()
+class TaskRepository() {
+
+    private var tasks: MutableList<Task>
+
+    init {
+        tasks = initializeList()
+    }
 
     fun save(task: Task) {
         tasks.add(task)
+        writeJson()
     }
 
     fun findAll() = tasks
@@ -17,6 +26,7 @@ class TaskRepository {
         return if (taskIndex != -1) {
             tasks[taskIndex].description = newDescription
             tasks[taskIndex].updatedAt = LocalDate.now()
+            writeJson()
             true
         } else {
             false
@@ -24,6 +34,20 @@ class TaskRepository {
     }
 
     fun deleteById(id: Int): Boolean {
-        return tasks.removeIf { it.id == id }
+        if (tasks.removeIf { it.id == id }) {
+            writeJson()
+            return true
+        }
+        return false
+    }
+
+    private fun writeJson() {
+        val json = Json.encodeToString(tasks)
+        File("src/main/resources/tasks.json").writeText(json)
+    }
+
+    private fun initializeList(): MutableList<Task> {
+        val json = File("src/main/resources/tasks.json").readText()
+        return Json.decodeFromString(json)
     }
 }
