@@ -1,6 +1,7 @@
 package controllers
 
 import models.Status
+import models.Task
 import services.TaskService
 
 class TaskController(private val taskService: TaskService) {
@@ -35,14 +36,30 @@ class TaskController(private val taskService: TaskService) {
     }
 
     fun listAllTasks() {
-        if (taskService.listAllTasks().isNotEmpty()) {
-            taskService.listAllTasks().forEach {
+        listTasks(taskService.listAllTasks())
+    }
+
+    fun listAllTodo() {
+        listTasks(taskService.listAllTodo())
+    }
+
+    fun listAllInProgress() {
+        listTasks(taskService.listAllInProgress())
+    }
+
+    fun listAllDone() {
+        listTasks(taskService.listAllDone())
+    }
+
+    private fun listTasks(tasks: List<Task>) {
+        if (tasks.isNotEmpty()) {
+            tasks.forEach {
                 val createdAtFormatted = "${it.createdAt.dayOfMonth}/${it.createdAt.month.value}/${it.createdAt.year}"
                 val updatedAtFormatted = "${it.updatedAt.dayOfMonth}/${it.updatedAt.month.value}/${it.updatedAt.year}"
                 println("${it.id} - ${it.description} - created at $createdAtFormatted- updated at $updatedAtFormatted - Status: ${it.status}")
             }
         } else {
-         println("Task List is empty")
+            println("Task List is empty")
         }
     }
 }

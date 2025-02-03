@@ -84,7 +84,16 @@ object ConsoleView {
                 }
             }
             "list" -> {
-                taskController.listAllTasks()
+                if (commands.size > 2) {
+                    when (commands[commands.lastIndex]) {
+                        "todo" -> taskController.listAllTodo()
+                        "in-progress" -> taskController.listAllInProgress()
+                        "done" -> taskController.listAllDone()
+                        else -> taskController.listAllTasks()
+                    }
+                } else {
+                    taskController.listAllTasks()
+                }
             }
             "exit" -> println("Task tracker closed")
             else -> println("Invalid option")

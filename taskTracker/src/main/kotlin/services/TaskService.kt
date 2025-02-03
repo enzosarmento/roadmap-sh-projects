@@ -33,4 +33,10 @@ class TaskService(private val taskRepository: TaskRepository) {
     }
 
     fun listAllTasks() = taskRepository.findAll()
+
+    fun listAllTodo() = taskRepository.findAllTodo()
+
+    fun listAllInProgress() = taskRepository.findAllInProgress()
+
+    fun listAllDone() = taskRepository.findAllDone()
 }

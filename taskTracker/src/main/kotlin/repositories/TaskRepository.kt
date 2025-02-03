@@ -22,9 +22,11 @@ class TaskRepository {
 
     fun findAll() = tasks
 
+    fun findAllTodo() = tasks.filter { it.status == Status.TODO }
+
     fun findAllInProgress() = tasks.filter { it.status == Status.PROGRESS }
 
-    fun findAllInDone() = tasks.filter { it.status == Status.DONE }
+    fun findAllDone() = tasks.filter { it.status == Status.DONE }
 
     fun updatedById(id: Int, newDescription: String): Boolean {
         val taskIndex = tasks.indexOfFirst { it.id == id }
