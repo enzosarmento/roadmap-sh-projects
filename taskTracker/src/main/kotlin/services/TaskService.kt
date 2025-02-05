@@ -8,16 +8,12 @@ import java.time.LocalDate
 class TaskService(private val taskRepository: TaskRepository) {
 
     fun createTask(description: String): Int {
-        val id = taskRepository.findAll().size + 1
-        val task = Task(
-            id,
-            description,
-            Status.TODO,
-            LocalDate.now(),
-            LocalDate.now()
-        )
-        taskRepository.save(task)
-        return task.id
+        val task = newTask(description)
+        return if (taskRepository.save(task)) {
+            task.id
+        } else {
+            -1
+        }
     }
 
     fun updateTask(id: Int, newDescription: String): Boolean {
@@ -39,4 +35,24 @@ class TaskService(private val taskRepository: TaskRepository) {
     fun listAllInProgress() = taskRepository.findAllInProgress()
 
     fun listAllDone() = taskRepository.findAllDone()
+
+    private fun newTask(description: String): Task {
+        return if (taskRepository.findAll().size > 0) {
+            Task(
+                taskRepository.findAll()[taskRepository.findAll().lastIndex].id + 1,
+                description,
+                Status.TODO,
+                LocalDate.now(),
+                LocalDate.now()
+            )
+        } else {
+            Task(
+                taskRepository.findAll().size + 1,
+                description,
+                Status.TODO,
+                LocalDate.now(),
+                LocalDate.now()
+            )
+        }
+    }
 }
