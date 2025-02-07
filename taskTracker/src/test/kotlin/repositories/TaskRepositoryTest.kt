@@ -45,35 +45,35 @@ class TaskRepositoryTest {
     }
 
     @Test
-    fun `must not create a task`() {
-        val success = repository.save(Task(2, "to study kotlin", Status.TODO, LocalDate.now(), LocalDate.now()))
-        assertFalse(success, "It was possible create a task")
-    }
-
-    @Test
     fun `must update an existing task`() {
-        repository.save(Task(8, "to study kotlin", Status.TODO, LocalDate.now(), LocalDate.now()))
+        repository.save(Task(801, "to study kotlin", Status.TODO, LocalDate.now(), LocalDate.now()))
 
-        val success = repository.updatedById(8, "to study kotlin and spring")
+        val success = repository.updatedById(801, "to study kotlin and spring")
         assertTrue(success)
         assertEquals("to study kotlin and spring", repository.findById(8)?.description)
     }
 
     @Test
-    fun `must update status an existing task`() {
-        repository.save(Task(7, "to study kotlin and junit", Status.TODO, LocalDate.now(), LocalDate.now()))
+    fun `must not create a task`() {
+        val success = repository.save(Task(801, "to study kotlin", Status.TODO, LocalDate.now(), LocalDate.now()))
+        assertFalse(success, "It was possible create a task")
+    }
 
-        val success = repository.updatedById(7, Status.DONE)
+    @Test
+    fun `must update status an existing task`() {
+        repository.save(Task(802, "to study kotlin and junit", Status.TODO, LocalDate.now(), LocalDate.now()))
+
+        val success = repository.updatedById(802, Status.DONE)
         assertTrue(success)
-        assertEquals(Status.DONE, repository.findById(7)?.status)
+        assertEquals(Status.DONE, repository.findById(802)?.status)
     }
 
     @Test
     fun `must delete an existing task`() {
-        repository.save(Task(9, "delete task", Status.TODO, LocalDate.now(), LocalDate.now()))
+        repository.save(Task(803, "delete task", Status.TODO, LocalDate.now(), LocalDate.now()))
 
-        val success = repository.deleteById(9)
+        val success = repository.deleteById(803)
         assertTrue(success)
-        assertEquals(null, repository.findById(9))
+        assertEquals(null, repository.findById(803))
     }
 }

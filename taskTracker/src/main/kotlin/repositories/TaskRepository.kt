@@ -77,7 +77,7 @@ class TaskRepository {
         try {
             val json = File("${pathName}/tasks.json").readText()
             return Json.decodeFromString(json)
-        } catch (e: FileNotFoundException) {
+        } catch (e: Exception) {
             File("${pathName}/tasks.json").createNewFile()
             val emptyListTask = mutableListOf<Task>()
             val json = Json.encodeToString(emptyListTask)

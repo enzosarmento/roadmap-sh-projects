@@ -1,11 +1,14 @@
 package controllers
 
 import models.Status
+import models.Task
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import repositories.TaskRepository
 import services.TaskService
+import java.time.LocalDate
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class TaskControllerTest {
 
@@ -29,7 +32,17 @@ class TaskControllerTest {
 
     @Test
     fun `must update status an existing task`() {
-        val res = controller.taskStatus(10, Status.DONE)
+        val success = repository.save(Task(
+            800,
+            "to study chinese",
+            Status.TODO,
+            LocalDate.now(),
+            LocalDate.now()
+        ))
+
+        assertTrue(success)
+
+        val res = controller.taskStatus(800, Status.DONE)
         assertEquals("Task status updated", res)
     }
 
@@ -41,7 +54,17 @@ class TaskControllerTest {
 
     @Test
     fun `must update an existing task`() {
-        val res = controller.updateTask(10, "to study greek")
+        val success = repository.save(Task(
+            800,
+            "to study chinese",
+            Status.TODO,
+            LocalDate.now(),
+            LocalDate.now()
+        ))
+
+        assertTrue(success)
+
+        val res = controller.updateTask(800, "to study greek")
         assertEquals("Task updated", res)
     }
 
@@ -53,7 +76,7 @@ class TaskControllerTest {
 
     @Test
     fun `must remove an existing task`() {
-        val res = controller.removeTask(9)
+        val res = controller.removeTask(repository.findAll()[repository.findAll().lastIndex].id)
         assertEquals("Task removed", res)
     }
 
