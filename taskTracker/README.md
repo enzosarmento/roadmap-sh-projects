@@ -1,5 +1,4 @@
 # Task Tracker
----
 A simple todo list project created challenge from roadmap.sh.
 
 ---
@@ -12,7 +11,6 @@ A simple todo list project created challenge from roadmap.sh.
       ```
 
 ---
-
 ## How to run
 
 ---
