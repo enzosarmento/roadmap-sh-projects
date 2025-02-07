@@ -1,5 +1,4 @@
 # Task Tracker
-
 ---
 A simple todo list project created challenge from roadmap.sh.
 
@@ -14,9 +13,9 @@ A simple todo list project created challenge from roadmap.sh.
 
 ---
 
-How to run
----
+## How to run
 
+---
 Clone the repository and run the following command:
 ```bash
 git clone https://github.com/enzosarmento/roadmap-sh-projects
