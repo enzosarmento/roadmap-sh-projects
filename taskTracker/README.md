@@ -1,33 +1,26 @@
 # Task Tracker
 A simple todo list project created challenge from roadmap.sh.
 
----
 ## Prerequisites
 
-- ***JDK 21+***
+- **JDK 21+**
     - You can check your JDK version by running:
       ```bash
       java -version
       ```
-
----
 ## How to run
 
----
 Clone the repository and run the following command:
 ```bash
 git clone https://github.com/enzosarmento/roadmap-sh-projects
 cd roadmap-sh-projects/taskTracker/
 ```
-
----
 Run the following command to build and run the project:
 ```bash
 ./gradlw build -x test
 java -jar build/libs/taskTracker-1.0.jar
 ```
 
----
 ## Example
 The list of commands and their usage is given below:
 ```bash
